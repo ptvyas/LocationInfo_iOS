@@ -39,7 +39,7 @@
     //-------------------------------->
     //Loading-View
     viewLoading.layer.cornerRadius = 5;
-    viewLoading.layer.borderColor = [UIColor lightGrayColor].CGColor;
+    viewLoading.layer.borderColor = [UIColor whiteColor].CGColor;
     viewLoading.layer.borderWidth = 1.0f;
     viewLoading.layer.masksToBounds = YES;
     
@@ -49,7 +49,7 @@
     //-------------------------------->
     //Address-View
     viewAddress.layer.cornerRadius = 5;
-    viewAddress.layer.borderColor = [UIColor lightGrayColor].CGColor;
+    viewAddress.layer.borderColor = [UIColor whiteColor].CGColor;
     viewAddress.layer.borderWidth = 1.0f;
     viewAddress.layer.masksToBounds = YES;
     
@@ -219,7 +219,19 @@
              
              NSMutableDictionary *placeInfo = [[NSMutableDictionary alloc] init];
              placeInfo = [placemark.addressDictionary mutableCopy];
+             /*
              //NSLog(@"placeInfo: %@",placeInfo);
+             //---- For more results
+             placemark.region);
+             placemark.country);
+             placemark.locality);
+             placemark.name);
+             placemark.ocean);
+             placemark.postalCode);
+             placemark.subLocality);
+             placemark.location);
+             //------
+             */
              
              Address = [[NSString alloc]initWithString:locatedAt];
              City = [self keyExisteOnDictionary:placeInfo key:@"SubLocality"];
@@ -239,7 +251,6 @@
              [dicLocationInfo setValue:Longitude forKey:_keyLongitude];
              
              lblAddress.text = Address;
-             
              dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.30 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                  if (Address.length==0 || City.length==0 || ZipCode.length==0 || State.length==0 || Country.length==0) {
                      [self manage_Animation_AddressView_Show:YES];
@@ -250,26 +261,11 @@
              });
              NSLog(@"address: %@",lblAddress.text);
          }
-         else {
-             //NSLog(@"Geocode failed with error %@", error);
-             //NSLog(@"\nCurrent Location Not Detected\n");
-             //return;
-             
+         else
+         {
              lblAddress.text = @"";
              [self showAlertMessage:@"Failed to Get Location address" autoHide:NO];
          }
-         /*---- For more results
-          placemark.region);
-          placemark.country);
-          placemark.locality);
-          placemark.name);
-          placemark.ocean);
-          placemark.postalCode);
-          placemark.subLocality);
-          placemark.location);
-          ------*/
-         
-         //[self loaderOnTitlebar_isShow:NO];
          [self manage_loader_GeetingAddress_isShow:NO];
      }];
 }
